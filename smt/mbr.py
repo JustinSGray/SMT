@@ -196,7 +196,7 @@ class MBR(SM):
         if kx != 0:
             data /= xlimits[kx-1, 1] - xlimits[kx-1, 0]
 
-        if sm_options['extrapolate']:
+        if sm_options.get('extrapolate'):
             ndx = ne * num['order']
             dx = MBRlib.compute_ext_dist(nx, ne, ndx, sm_options['xlimits'], x)
             isexternal = np.array(np.array(dx, bool), float)
