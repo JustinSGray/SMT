@@ -131,7 +131,7 @@ class SM(object):
         else:
             self.printer._title('Training')
 
-        #Train the model using the specified model-method
+        # Train the model using the specified model-method
         with self.printer._timed_context('Training'):
             self.fit()
 

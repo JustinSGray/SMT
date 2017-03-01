@@ -129,7 +129,8 @@ class MBR(SM):
         # have to exclude the cache location from checksum, so its independent from where you
         # call the file from
         options = self.sm_options.copy()
-        del self.sm_options['cache_location']
+        if 'cache_location' in self.sm_options:
+            del self.sm_options['cache_location']
         checksum = _caching_checksum_sm(self)
 
         filename = '%s.sm' % self.sm_options['name']
