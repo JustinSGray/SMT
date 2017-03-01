@@ -429,9 +429,17 @@ class RMTS(SM):
         """
         Train the model
         """
+        # have to exclude the cache location from checksum, so its independent from where you
+        # call the file from
+        options = self.sm_options.copy()
+        del self.sm_options['cache_location']
         checksum = _caching_checksum_sm(self)
 
         filename = '%s.sm' % self.sm_options['name']
+        path = options.get('cache_location', False)
+        if path:
+            filename = os.path.join(path, filename)
+
         success, data = _caching_load(filename, checksum)
         if not success or not self.sm_options['save_solution']:
             self._fit()
@@ -440,6 +448,10 @@ class RMTS(SM):
         else:
             self.sol = data['sol']
             self.num = data['num']
+
+        # put the original options back
+        self.sm_options = options
+
 
     def evaluate(self, x, kx):
         """

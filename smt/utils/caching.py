@@ -87,6 +87,6 @@ def _caching_checksum_sm(sm):
     tmp = sm.printer
 
     sm.printer = None
-    checksum = _caching_checksum(sm)
+    checksum = _caching_checksum((sm.sm_options, sm.training_pts))
     sm.printer = tmp
     return checksum
